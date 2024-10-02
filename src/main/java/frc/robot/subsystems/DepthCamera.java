@@ -270,8 +270,4 @@ public class DepthCamera extends SubsystemBase {
             e.printStackTrace(); // Вывод информации об ошибке
         }
     }
-
-    public void Exit(){
-        System.out.println("Rifat");
-    }
 }
