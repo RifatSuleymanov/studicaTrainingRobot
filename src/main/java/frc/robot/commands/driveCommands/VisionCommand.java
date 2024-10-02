@@ -5,38 +5,35 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.VisionSubsystem;
 
-public class VisionCommand extends CommandBase
-{
+public class VisionCommand extends CommandBase {
     private static final VisionSubsystem vision = RobotContainer.vision;
 
     boolean getNewBarcode;
 
-    public VisionCommand ()
-    {
+    public VisionCommand() {
         addRequirements(vision);
     }
 
     @Override
-    public void initialize(){}
+    public void initialize() {
+    }
 
     @Override
-    public void execute()
-    {
+    public void execute() {
         getNewBarcode = SmartDashboard.getBoolean("Get New Barcode", false);
 
-        if (getNewBarcode)
-        {
+        if (getNewBarcode) {
             vision.readBarcode();
             SmartDashboard.putBoolean("Get New Barcode", false);
         }
     }
 
     @Override
-    public void end(boolean interrupted){}
+    public void end(boolean interrupted) {
+    }
 
     @Override
-    public boolean isFinished()
-    {
+    public boolean isFinished() {
         return false;
     }
 }

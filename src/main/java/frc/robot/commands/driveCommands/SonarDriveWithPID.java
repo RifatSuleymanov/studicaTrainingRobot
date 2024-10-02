@@ -1,6 +1,5 @@
 package frc.robot.commands.driveCommands;
 
-import com.studica.frc.Cobra;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Ultrasonic;
@@ -40,6 +39,7 @@ public class SonarDriveWithPID extends CommandBase {
      */
     private boolean hasStopped = false;
     private boolean hasTurned = false;
+
     /**
      * Конструктор класса
      */
@@ -123,6 +123,7 @@ public class SonarDriveWithPID extends CommandBase {
             }
         }
     }
+
     /**
      * Остановка двигателей робота
      */
@@ -130,6 +131,7 @@ public class SonarDriveWithPID extends CommandBase {
     public void end(boolean interrupted) {
         drive.setDriveMotorSpeeds(0.0, 0.0, 0.0);
     }
+
     /**
      * Возвращает true если цель по дистанции достигнута
      */

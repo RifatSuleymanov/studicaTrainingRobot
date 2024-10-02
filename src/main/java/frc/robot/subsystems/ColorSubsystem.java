@@ -5,7 +5,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class  ColorSubsystem extends SubsystemBase {
+public class ColorSubsystem extends SubsystemBase {
     private NetworkTableInstance inst = NetworkTableInstance.getDefault();
     private NetworkTable table = inst.getTable("VisionRgb");
     private NetworkTableEntry rgbEntry;

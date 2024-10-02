@@ -1,11 +1,11 @@
 package frc.robot.commands.driveCommands;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ColorSubsystem;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
 
 import java.io.IOException;
 
@@ -64,7 +64,6 @@ public class ColorCommand extends CommandBase {
             SmartDashboard.putString("Robot Log", "Неверный формат RGB данных: " + rgbValues);
         }
     }
-
 
 
     public void togglePythonScript() {

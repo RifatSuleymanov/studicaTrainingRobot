@@ -4,7 +4,9 @@ import com.orbbec.obsensor.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-/** Класс DepthCamera, наследующий от SubsystemBase*/
+/**
+ * Класс DepthCamera, наследующий от SubsystemBase
+ */
 public class DepthCamera extends SubsystemBase {
     private OBContext obContext; // Контекст для работы с камерой
     private final Object pipeLock = new Object(); // Объект для синхронизации потоков
@@ -15,7 +17,9 @@ public class DepthCamera extends SubsystemBase {
         initCamera(); // Инициализация камеры
     }
 
-    /** Метод для инициализации камеры*/
+    /**
+     * Метод для инициализации камеры
+     */
     private void initCamera() {
         // Создание контекста с коллбэком на изменение устройства
         obContext = new OBContext(new DeviceChangedCallback() {
@@ -46,7 +50,9 @@ public class DepthCamera extends SubsystemBase {
         }
     }
 
-    /** Метод для освобождения камеры*/
+    /**
+     * Метод для освобождения камеры
+     */
     private void destroyCamera() {
         try {
             // Закрытие контекста, если он существует
@@ -59,7 +65,9 @@ public class DepthCamera extends SubsystemBase {
         }
     }
 
-    /** Метод для инициализации конвейера */
+    /**
+     * Метод для инициализации конвейера
+     */
     private void initPipeline(DeviceList deviceList) {
         synchronized (pipeLock) // Синхронизация доступа к конвейеру
         {
@@ -76,7 +84,9 @@ public class DepthCamera extends SubsystemBase {
         }
     }
 
-    /** Метод для освобождения конвейера*/
+    /**
+     * Метод для освобождения конвейера
+     */
     private void deInitPipeline() {
         synchronized (pipeLock) // Синхронизация доступа к конвейеру
         {
@@ -91,7 +101,9 @@ public class DepthCamera extends SubsystemBase {
         }
     }
 
-    /** Метод для запуска потоков */
+    /**
+     * Метод для запуска потоков
+     */
     public void startStreams() {
         synchronized (pipeLock) // Синхронизация доступа к конвейеру
         {
@@ -157,7 +169,9 @@ public class DepthCamera extends SubsystemBase {
         }
     }
 
-    /** Метод для остановки потоков*/
+    /**
+     * Метод для остановки потоков
+     */
     public void stopStreams() {
         synchronized (pipeLock) // Синхронизация доступа к конвейеру
         {
@@ -172,7 +186,9 @@ public class DepthCamera extends SubsystemBase {
         }
     }
 
-    /** Метод для вывода информации о профиле видео потока*/
+    /**
+     * Метод для вывода информации о профиле видео потока
+     */
     private void printVideoStreamProfile(VideoStreamProfile vsp, SensorType type) {
         StringBuilder sb = new StringBuilder()
                 .append(" StreamType: " + vsp.getType() + "\n")
@@ -189,7 +205,9 @@ public class DepthCamera extends SubsystemBase {
             SmartDashboard.putString("Профиль видео потока (ИК)", sb.toString());
     }
 
-    /** Метод для вывода информации о видео кадре */
+    /**
+     * Метод для вывода информации о видео кадре
+     */
     private void printVideoFrame(VideoFrame vf, SensorType type) {
         StringBuilder sb = new StringBuilder()
                 .append("FrameType: " + vf.getStreamType() + "\n")
@@ -208,7 +226,9 @@ public class DepthCamera extends SubsystemBase {
             SmartDashboard.putString("Кадр видео (ИК)", sb.toString());
     }
 
-    /** Метод для обработки кадра глубины*/
+    /**
+     * Метод для обработки кадра глубины
+     */
     private void processDepthFrame(DepthFrame frame) {
         int height = frame.getWidth(); // Получение высоты кадра
         int width = frame.getHeight(); // Получение ширины кадра
@@ -242,7 +262,9 @@ public class DepthCamera extends SubsystemBase {
         SmartDashboard.putString("Данные: ", sb.toString());
     }
 
-    /** Метод для обработки набора кадров */
+    /**
+     * Метод для обработки набора кадров
+     */
     private void processFrameSet(FrameSet frameSet) {
         try (ColorFrame colorFrame = frameSet.getFrame(FrameType.COLOR)) // Получение цветного кадра
         {

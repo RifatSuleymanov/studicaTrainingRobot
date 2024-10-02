@@ -1,10 +1,14 @@
 package frc.robot.gamepad;
 
 public class GamepadConstants {
-    /**Controller USB ports*/
+    /**
+     * Controller USB ports
+     */
     public static final int DRIVE_USB_PORT = 0;
-    /**PS4
-     Buttons*/
+    /**
+     * PS4
+     * Buttons
+     */
     public static final int X_BUTTON = 2;
     public static final int SQUARE_BUTTON = 1;
     public static final int CIRCLE_BUTTON = 3;
@@ -19,12 +23,16 @@ public class GamepadConstants {
     public static final int RIGHT_ANALOG_BUTTON = 12;
     public static final int PS4_BUTTON = 13;
     public static final int TOUCHPAD_BUTTON = 14;
-    /**Joystick*/
+    /**
+     * Joystick
+     */
     public static final int LEFT_ANALOG_X = 0;
     public static final int LEFT_ANALOG_Y = 1;
     public static final int RIGHT_ANALOG_X = 2;
     public static final int RIGHT_ANALOG_Y = 5;
-    /**DPAD*/
+    /**
+     * DPAD
+     */
     public static final int DPAD_X = 4;
     public static final int DPAD_Y = 5;
 }

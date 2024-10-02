@@ -6,43 +6,71 @@ import frc.robot.gamepad.OI;
 import frc.robot.subsystems.DriveTrain;
 
 public class Teleop extends CommandBase {
-    /**Подключаем классы DriveTrain и OI*/
+    /**
+     * Подключаем классы DriveTrain и OI
+     */
     private static final DriveTrain driveTrain = RobotContainer.driveTrain;
     private static final OI oi = RobotContainer.oi;
-    /**Входные данные от джойстика */
-    double inputLeftY = 0; /** Переменная для хранения значений Y (вперед/назад) левого джойстика*/
-    double inputLeftX = 0; /** Переменная для хранения значений Х (влево/вправо) левого джойстика*/
+    /**
+     * Входные данные от джойстика
+     */
+    double inputLeftY = 0;
+    /**
+     * Переменная для хранения значений Y (вперед/назад) левого джойстика
+     */
+    double inputLeftX = 0;
+    /**
+     * Переменная для хранения значений Х (влево/вправо) левого джойстика
+     */
     double inputRightX = 0;
-    /**Переменные для управления плавностью  */
+    /**
+     * Переменные для управления плавностью
+     */
     double deltaLeftY = 0;
     double deltaLeftX = 0;
     double deltaRightX = 0;
     double prevLeftY = 0;
     double prevLeftX = 0;
-    /**Переменные для управления моторами и хранения для скорости каждого мотора */
+    /**
+     * Переменные для управления моторами и хранения для скорости каждого мотора
+     */
     double leftMotor = 0;
     double rightMotor = 0;
     double backMotor = 0;
-    /** Для хранения максимальной скорости*/
+    /**
+     * Для хранения максимальной скорости
+     */
     double max = 0;
-    /**Константы для плавного увеличения скорости */
+    /**
+     * Константы для плавного увеличения скорости
+     */
     private static final double RAMP_UP = 0.05;
-    /**Константы для плавного уменьшения скорости */
+    /**
+     * Константы для плавного уменьшения скорости
+     */
     private static final double RAMP_DOWN = 0.05;
-    /**Константа, задающая предел изменения скорости */
+    /**
+     * Константа, задающая предел изменения скорости
+     */
     private static final double DELTA_LIMIT = 0.075;
 
     public Teleop() {
         addRequirements(driveTrain);
     }
-    /**Код здесь будет выполнен один раз, когда команда будет вызвана в первый раз */
+
+    /**
+     * Код здесь будет выполнен один раз, когда команда будет вызвана в первый раз
+     */
     @Override
     public void initialize() {
         /** Сбрасывает эндкодеры*/
         driveTrain.resetEncoders();
         driveTrain.resetYaw();
     }
-    /**Код здесь будет выполнятся непрерывно в каждом цикле робота, пока команда не будет остановлена */
+
+    /**
+     * Код здесь будет выполнятся непрерывно в каждом цикле робота, пока команда не будет остановлена
+     */
     @Override
     public void execute() {
         /** Получение данных от джойстика*/

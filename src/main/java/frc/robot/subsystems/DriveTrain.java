@@ -12,24 +12,58 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
-    private final TitanQuad leftMotor; /** Левый мотор*/
-    private final TitanQuad rightMotor;   /** Правый мотор*/
-    private final TitanQuad backMotor;    /** Задний мотор*/
+    private final TitanQuad leftMotor;
+    /**
+     * Левый мотор
+     */
+    private final TitanQuad rightMotor;
+    /**
+     * Правый мотор
+     */
+    private final TitanQuad backMotor;
+    /**
+     * Задний мотор
+     */
     private AnalogInput sharp;
-    private final TitanQuadEncoder leftEncoder; /** Левый эндкодер*/
-    private final TitanQuadEncoder rightEncoder; /** Правый эндкодер*/
-    private final TitanQuadEncoder backEncoder; /** Задний эндкодер*/
-    private final AHRS navx; /** Гироскоп NavX*/
+    private final TitanQuadEncoder leftEncoder;
+    /**
+     * Левый эндкодер
+     */
+    private final TitanQuadEncoder rightEncoder;
+    /**
+     * Правый эндкодер
+     */
+    private final TitanQuadEncoder backEncoder;
+    /**
+     * Задний эндкодер
+     */
+    private final AHRS navx;
+    /**
+     * Гироскоп NavX
+     */
 
     private final ShuffleboardTab tab = Shuffleboard.getTab("Training Robot");
     private final NetworkTableEntry leftEncoderValue = tab.add("Left Encoder", 0)
-            .getEntry();                                    /** Создания записи для левого эндкодера*/
+            .getEntry();
+    /**
+     * Создания записи для левого эндкодера
+     */
     private final NetworkTableEntry rightEncoderValue = tab.add("Right Encoder", 0)
-                    .getEntry();                                    /** Создания записи для правого эндкодера*/
+            .getEntry();
+    /**
+     * Создания записи для правого эндкодера
+     */
     private final NetworkTableEntry backEncoderValue = tab.add("Back Encoder", 0)
-                    .getEntry();                                    /** Создания записи для заднего эндкодера*/
+            .getEntry();
+    /**
+     * Создания записи для заднего эндкодера
+     */
     private final NetworkTableEntry gyroValue = tab.add("NavX Yaw", 0)
-                    .getEntry();                                    /** Создания записи для эндкодера гироскопа*/
+            .getEntry();
+
+    /**
+     * Создания записи для эндкодера гироскопа
+     */
 
     public DriveTrain() {
         leftMotor = new TitanQuad(Constants.TITAN_ID, Constants.M1); /** Инициаизация левого мотора с использованием ID и канала */
@@ -55,13 +89,17 @@ public class DriveTrain extends SubsystemBase {
         backMotor.set(speed); /** Устанавливает скорость заднего мотора*/
     }
 
-    /** Устанавливает скорость мотора*/
+    /**
+     * Устанавливает скорость мотора
+     */
     public void setDriveMotorSpeeds(double leftSpeed, double rightSpeed, double backSpeed) {
         leftMotor.set(leftSpeed);
         rightMotor.set(rightSpeed);
         backMotor.set(backSpeed);
     }
-    /**Управляет движением робота в холономической модели управления. Холономическое движение позволяет роботу перемещаться в любом направлении,
+
+    /**
+     * Управляет движением робота в холономической модели управления. Холономическое движение позволяет роботу перемещаться в любом направлении,
      * включая боковое двиение и вращение, без необходимости изменять ориентацию самого робота
      */
     public void holonomicDrive(double x, double y, double z) {
@@ -74,8 +112,7 @@ public class DriveTrain extends SubsystemBase {
         if (Math.abs(leftSpeed) > max) max = Math.abs(leftSpeed); /** Обновление максимальной скорости, если небходимо*/
         if (Math.abs(backSpeed) > max) max = Math.abs(backSpeed); /** Обновление максимальной скорости, если небходимо*/
 
-        if (max > 1) /** Проверка, превышает ли максимальная скорость 1*/
-        {
+        if (max > 1) /** Проверка, превышает ли максимальная скорость 1*/ {
             rightSpeed /= max; /** Нормализация скоростей*/
             leftSpeed /= max; /** Нормализация скоростей*/
             backSpeed /= max; /** Нормализация скоростей*/
@@ -85,33 +122,54 @@ public class DriveTrain extends SubsystemBase {
         rightMotor.set(rightSpeed);
         backMotor.set(backSpeed);
     }
-    /** Возвращает растояние, пройденное левым приводом, в миллиметрах*/
+
+    /**
+     * Возвращает растояние, пройденное левым приводом, в миллиметрах
+     */
     public double getLeftEncoderDistance() {
         return leftEncoder.getEncoderDistance() * -1;
     }
-    /** Возвращает растояние, пройденное правым приводом, в миллиметрах с измененным знаком*/
+
+    /**
+     * Возвращает растояние, пройденное правым приводом, в миллиметрах с измененным знаком
+     */
     public double getRightEncoderDistance() {
         return rightEncoder.getEncoderDistance() * 1;
     }
-    /** Возвращает растояние, пройденное задним приводом, в миллиметрах*/
+
+    /**
+     * Возвращает растояние, пройденное задним приводом, в миллиметрах
+     */
     public double getBackEncoderDistance() {
         return backEncoder.getEncoderDistance();
     }
-    /** Возвращает среднее растояние, пройденное левым и правым приводом, в миллиметрах*/
+
+    /**
+     * Возвращает среднее растояние, пройденное левым и правым приводом, в миллиметрах
+     */
     public double getAverageForwardEncoderDistance() {
         return (getLeftEncoderDistance() + getRightEncoderDistance()) / 2;
     }
-    /** Возврашает текущий угол наклона с гироскопа NavX в градусах ( в диапазоне от -180* до 180*)*/
+
+    /**
+     * Возврашает текущий угол наклона с гироскопа NavX в градусах ( в диапазоне от -180* до 180*)
+     */
     public double getYaw() {
         return navx.getYaw();
     }
-    /** Сбрасывает значений эндкодеров*/
+
+    /**
+     * Сбрасывает значений эндкодеров
+     */
     public void resetEncoders() {
         leftEncoder.reset();
         rightEncoder.reset();
         backEncoder.reset();
     }
-    /** Сбрасывает значение угла наклона гироскопа NavX*/
+
+    /**
+     * Сбрасывает значение угла наклона гироскопа NavX
+     */
     public void resetYaw() {
         navx.zeroYaw();
     }
@@ -119,7 +177,10 @@ public class DriveTrain extends SubsystemBase {
     public double getDistanceSharp() {
         return (Math.pow(sharp.getAverageVoltage(), -1.2045)) * 27.726;
     }
-    /** Обновляет значение эндкодера на Shuffleboard*/
+
+    /**
+     * Обновляет значение эндкодера на Shuffleboard
+     */
     @Override
     public void periodic() {
         leftEncoderValue.setDouble(getLeftEncoderDistance() / 10);

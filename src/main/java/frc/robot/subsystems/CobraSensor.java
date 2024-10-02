@@ -25,7 +25,8 @@ public class CobraSensor extends SubsystemBase {
         cobra = new Cobra();
 
     }
-    public double getCobra(int chanel){
+
+    public double getCobra(int chanel) {
         return cobra.getRawValue(chanel);
     }
 

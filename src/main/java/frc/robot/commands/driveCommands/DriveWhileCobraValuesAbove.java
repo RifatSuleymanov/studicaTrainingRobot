@@ -32,7 +32,7 @@ public class DriveWhileCobraValuesAbove extends CommandBase {
         if (areAllCobraValuesAboveThreshold()) {
             drive.holonomicDrive(0.0, 0.1, 0.0);
         } else {
-            drive.holonomicDrive(0, 0,0);/** Останавливаемся, если одно из значений меньше порога*/
+            drive.holonomicDrive(0, 0, 0);/** Останавливаемся, если одно из значений меньше порога*/
         }
     }
 
@@ -43,6 +43,6 @@ public class DriveWhileCobraValuesAbove extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        drive.holonomicDrive(0, 0,0); /** Останавливаем робота при завершении команды*/
+        drive.holonomicDrive(0, 0, 0); /** Останавливаем робота при завершении команды*/
     }
 }
