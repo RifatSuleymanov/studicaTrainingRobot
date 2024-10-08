@@ -49,7 +49,6 @@ public class DepthCamera extends SubsystemBase {
             deviceList.close(); // Закрытие списка устройств
         }
     }
-
     /**
      * Метод для освобождения камеры
      */
@@ -113,7 +112,6 @@ public class DepthCamera extends SubsystemBase {
                 return; // Выход из метода
             }
             Config config = new Config(); // Создание конфигурации
-
             // Настройка потоков для цветного изображения
             try (StreamProfileList colorProfileList = pipeline.getStreamProfileList(SensorType.COLOR)) {
                 VideoStreamProfile colorProfile = colorProfileList.getStreamProfile(0).as(StreamType.VIDEO); // Получение профиля цветного потока
@@ -126,7 +124,6 @@ public class DepthCamera extends SubsystemBase {
             } catch (Exception e) {
                 e.printStackTrace(); // Вывод информации об ошибке
             }
-
             // Настройка потоков для глубины
             try (StreamProfileList depthProfileList = pipeline.getStreamProfileList(SensorType.DEPTH)) {
                 VideoStreamProfile depthProfile = depthProfileList.getStreamProfile(0).as(StreamType.VIDEO); // Получение профиля потока глубины
@@ -139,7 +136,6 @@ public class DepthCamera extends SubsystemBase {
             } catch (Exception e) {
                 e.printStackTrace(); // Вывод информации об ошибке
             }
-
             // Настройка потоков для ИК
             try (StreamProfileList irProfileList = pipeline.getStreamProfileList(SensorType.IR)) {
                 VideoStreamProfile irProfile = irProfileList.getStreamProfile(0).as(StreamType.VIDEO); // Получение профиля ИК потока
@@ -152,7 +148,6 @@ public class DepthCamera extends SubsystemBase {
             } catch (Exception e) {
                 e.printStackTrace(); // Вывод информации об ошибке
             }
-
             // Запуск потоков с передачей коллбэка для обработки наборов кадров
             try {
                 pipeline.start(config, new FrameSetCallback() {
@@ -232,30 +227,22 @@ public class DepthCamera extends SubsystemBase {
     private void processDepthFrame(DepthFrame frame) {
         int height = frame.getWidth(); // Получение высоты кадра
         int width = frame.getHeight(); // Получение ширины кадра
-
         int x = width / 2; // Координата X в центре кадра
         int y = height / 2; // Координата Y в центре кадра
-
         double fov_w = 79.0; // Ширина поля зрения
         double fov_h = 62.0; // Высота поля зрения
-
         byte[] frameData = new byte[frame.getDataSize()]; // Массив для хранения данных кадра
         frame.getData(frameData); // Получение данных кадра
-
         int depthD1 = frameData[y * width + x]; // Данные глубины в центре кадра
         int depthD2 = frameData[y * width + x + 1]; // Данные глубины рядом с центром
-
         // Обработка данных глубины
         double pZ = ((depthD2 << 8) & 0xFF00) + (depthD1 & 0xFF);
-
         // Вычисление углов в зависимости от координат центра
         double theta_w = (fov_w / (double) width) * (x - (width / 2.0));
         double theta_h = (fov_h / (double) height) * (y - (height / 2.0));
-
         // Вычисление координат X и Y в миллиметрах
         double pX = pZ * Math.tan(Math.toRadians(theta_w));
         double pY = pZ * Math.tan(Math.toRadians(theta_h));
-
         // Вывод координат на SmartDashboard
         StringBuilder sb = new StringBuilder()
                 .append("x: " + Math.round(pX) + "мм, y: " + Math.round(pY) + "мм, z: " + pZ + "мм");
