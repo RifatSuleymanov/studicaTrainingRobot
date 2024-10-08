@@ -107,11 +107,9 @@ public class DriveTrain extends SubsystemBase {
         double rightSpeed = ((x / 3) - (y / Math.sqrt(3)) + z) * Math.sqrt(3);
         double leftSpeed = ((x / 3) + (y / Math.sqrt(3)) + z) * Math.sqrt(3);
         double backSpeed = (-2 * x / 3) + z;
-
         double max = Math.abs(rightSpeed); /** Определение максимальной скорости для нормализации*/
         if (Math.abs(leftSpeed) > max) max = Math.abs(leftSpeed); /** Обновление максимальной скорости, если небходимо*/
         if (Math.abs(backSpeed) > max) max = Math.abs(backSpeed); /** Обновление максимальной скорости, если небходимо*/
-
         if (max > 1) /** Проверка, превышает ли максимальная скорость 1*/ {
             rightSpeed /= max; /** Нормализация скоростей*/
             leftSpeed /= max; /** Нормализация скоростей*/
