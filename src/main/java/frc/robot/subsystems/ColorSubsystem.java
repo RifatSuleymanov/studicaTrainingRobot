@@ -21,6 +21,5 @@ public class ColorSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        // Здесь ничего не требуется
     }
 }
